@@ -9,15 +9,20 @@
     }
 
     $result = 0;
+    $numbers = [];
 
-    if(isset($_SESSION['cumul'])) {
+    if(isset($_SESSION['cumul']) && isset($_SESSION['numbers'])) {
         $result = $_SESSION['cumul'];
+        $numbers = $_SESSION['numbers'];
     }
 
 
     if(isset($_POST['number']) && is_numeric($_POST['number'])) {
+        $numbers[] = $_POST['number'];
         $result += $_POST['number'];
+        
         $_SESSION['cumul'] = $result;
+        $_SESSION['numbers'] = $numbers;
     }
 
 ?>
@@ -50,6 +55,17 @@
                 <input type="submit" class="btn btn-outline-secondary" name="raz" value="R.A.Z">
             </p>
         </form>
+
+        <div class="border col-6 rounded m-3">
+            <h2>Historique</h2>
+            <ul>
+                <?php
+                    foreach($numbers as $number) {
+                        echo "<li>$number</li>";
+                    }
+                ?>
+            </ul>
+        </div>
     </main>
     
 </body>
