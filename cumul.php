@@ -7,23 +7,20 @@
         header('Location: cumul.php');
         die();
     }
-
-    $result = 0;
+    
     $numbers = [];
 
-    if(isset($_SESSION['cumul']) && isset($_SESSION['numbers'])) {
-        $result = $_SESSION['cumul'];
+    if(isset($_SESSION['numbers'])) {
         $numbers = $_SESSION['numbers'];
     }
 
 
     if(isset($_POST['number']) && is_numeric($_POST['number'])) {
-        $numbers[] = $_POST['number'];
-        $result += $_POST['number'];
-        
-        $_SESSION['cumul'] = $result;
+        $numbers[] = $_POST['number'];        
         $_SESSION['numbers'] = $numbers;
     }
+
+    $result = array_sum($numbers);
 
 ?>
 <!DOCTYPE html>
