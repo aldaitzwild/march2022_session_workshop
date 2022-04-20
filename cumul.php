@@ -2,6 +2,12 @@
 
     session_start();
 
+    if(isset($_POST['raz'])) {
+        session_destroy();
+        header('Location: cumul.php');
+        die();
+    }
+
     $result = 0;
 
     if(isset($_SESSION['cumul'])) {
@@ -9,7 +15,7 @@
     }
 
 
-    if(isset($_POST['number'])) {
+    if(isset($_POST['number']) && is_numeric($_POST['number'])) {
         $result += $_POST['number'];
         $_SESSION['cumul'] = $result;
     }
@@ -41,6 +47,7 @@
 
             <p>
                 <input type="submit" class="btn btn-outline-primary" value="OK">
+                <input type="submit" class="btn btn-outline-secondary" name="raz" value="R.A.Z">
             </p>
         </form>
     </main>
